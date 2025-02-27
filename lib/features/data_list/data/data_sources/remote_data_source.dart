@@ -16,11 +16,13 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<List<DataModel>> getDataList() async {
     //Accessing list of documents from AppWrite databases instance
     try {
-      final response = await appWriteClient.databases.listDocuments(
+      final response = await appWriteClient.getDatabases().listDocuments(
         databaseId: AppConstants.DATABASE_ID,
         collectionId: AppConstants.COLLECTION_ID,
       );
-      return response.documents.map((d) => DataModel.fromJson(d.data)).toList();
+      return response.documents.map((d) {
+        return DataModel.fromJson(d.data);
+      }).toList();
     } on AppwriteException catch (e) {
       throw Exception('Failed to load data list: $e');
     }

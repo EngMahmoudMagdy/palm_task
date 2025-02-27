@@ -9,5 +9,7 @@ class AppWriteClient {
     client.setProject(projectId);
   }
 
-  get databases => Databases(client);
+  Databases getDatabases() {
+    return Databases(client);
+  }
 }
